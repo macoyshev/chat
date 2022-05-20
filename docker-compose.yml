@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+    redis:
+        container_name: redis-containter
+        image: redis:latest
+        command: --port 6379
+        ports:
+            - "6379:6379"
+        expose:
+            - "6379"
+        restart: always
+
+    app:
+        container_name: app-container
+        build: .
+        environment:
+            - REDIS_HOST=redis
+        ports:
+        - "8000:8000"
+        depends_on:
+            - redis
+        links:
+            - redis
+        command: uvicorn --factory app.api:create_api --reload --host 0.0.0.0 --port 8000
