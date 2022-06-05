@@ -15,6 +15,7 @@ class ConnectionManager:
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
 
-    async def broadcast(self, message: str):
+    async def broadcast(self, message: str, exp: WebSocket):
         for connection in self.active_connections:
-            await connection.send_text(message)
+            if connection is not exp:
+                await connection.send_text(message)
