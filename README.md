@@ -10,12 +10,14 @@ To see API, launch [fastapi-server](#run-server), and go to `http://127.0.0.1:80
 ### Create venv:
     make venv
 
+### Create venv for windows:
+    make venv-win
+
 ### Run redis:
     make redis
 
 ### Run server:
     make up
-
 
 ### Run console client
     make console

@@ -15,6 +15,14 @@ venv:
 	$(VENV)/bin/python -m pip install poetry
 	$(VENV)/bin/poetry install
 
+
+.PHONY: venv-win
+venv:
+	python3.9 -m venv $(VENV)
+	$(VENV)/Scripts/python -m pip install --upgrade pip
+	$(VENV)/Scripts/python -m pip install poetry
+	$(VENV)/Scripts/poetry install
+
 .PHONY: test
 test: ## Runs pytest
 	$(VENV)/bin/pytest -v -s tests
