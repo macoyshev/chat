@@ -27,9 +27,7 @@ async def fetch_messages(
 @router.post('/threads')
 async def create_thread():
     thread_id = uuid.uuid4()
-    return {
-        'thread_id': thread_id
-    }
+    return {'thread_id': thread_id}
 
 
 @router.websocket('/ws/{thread_id}')
