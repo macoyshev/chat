@@ -31,10 +31,10 @@ async def websocket_endpoint(
     try:
         while True:
             data = await websocket.receive_text()
+            await manager.broadcast(data)
             await redis.publish('chat', f'#{username}: {data}')
             await redis.rpush('chat', f'#{username}: {data}')
             await redis.ltrim('chat', 0, 49)
-            await manager.broadcast(data)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await redis.publish('chat', f'#{username}: left the chat')
