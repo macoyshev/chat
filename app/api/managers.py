@@ -17,5 +17,5 @@ class ConnectionManager:
 
     async def broadcast(self, message: str, exp: WebSocket):
         for connection in self.active_connections:
-            if connection is not exp:
+            if connection != exp:
                 await connection.send_text(message)
