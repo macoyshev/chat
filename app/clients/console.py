@@ -37,14 +37,20 @@ async def listen_channel() -> None:
             print(res['data'].decode())
 
 
+async def listen_socket(websocket: WebSocketClientProtocol) -> None:
+    while True:
+        data = await websocket.recv()
+        print(data)
+
+
 async def main() -> None:
-    nickname = await aioconsole.ainput('Choose your nickname: ')
+    nickname = await aioconsole.ainput('thread_id: ')
     websocket_endpoint = Endpoints().websocket.format(nickname)
 
     await load_previous_messages()
 
     async with ws_connect(websocket_endpoint) as websocket:
-        await asyncio.gather(listen_channel(), listen_to_console(websocket))
+        await asyncio.gather(listen_socket(websocket), listen_to_console(websocket))
 
 
 if __name__ == '__main__':
